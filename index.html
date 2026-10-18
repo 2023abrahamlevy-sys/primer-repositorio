@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversor de Divisas - Sistema de Pegatinas</title>
+    <title>Conversor de Divisas</title>
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
 
     <div class="contenedor-principal">
-        <!-- Sección 1: Formulario del Conversor -->
+        <!-- Sección Izquierda: Formulario de Conversión -->
         <section class="tarjeta conversor">
             <h1>💱 Conversor de Divisas</h1>
-            
+
             <div class="panel-conversor">
                 <div class="grupo-entrada">
                     <label for="monto">Monto a convertir:</label>
-                    <input type="number" id="monto" value="1000" min="0" step="any" placeholder="Ingresa el monto">
+                    <input type="number" id="monto" value="1000" min="0" placeholder="Ingresa el monto">
                 </div>
 
                 <div class="fila-selectores">
@@ -31,7 +31,7 @@
                         </select>
                     </div>
 
-                    <button type="button" id="btn-intercambiar" class="btn-swap" title="Intercambiar monedas">⇄</button>
+                    <button type="button" id="btn-intercambiar" class="btn-swap" title="Intercambiar">⇄</button>
 
                     <div class="grupo-selector">
                         <label for="moneda-destino">Hacia:</label>
@@ -50,15 +50,15 @@
                 <div class="caja-resultado">
                     <h2>RESULTADO</h2>
                     <div class="info-conversion">
-                        <p id="resultado-texto">1.000 ARS = 0,75 USD</p>
-                        <span id="tipo-cambio-texto">Tipo de cambio: 1 USD = 1.333,33 ARS</span>
+                        <p id="resultado-texto">0 ARS = 0 USD</p>
+                        <span id="tipo-cambio-texto">Cargando...</span>
                     </div>
                     <p class="nota-subtitulo">El resultado se agrega automáticamente como una nueva pegatina ✨</p>
                 </div>
             </div>
         </section>
 
-        <!-- Sección 2: Sistema de Pegatinas (Historial) -->
+        <!-- Sección Derecha: Sistema de Pegatinas -->
         <section class="tarjeta pegatinas">
             <div class="encabezado-pegatinas">
                 <h2>🎟️ Sistema de Pegatinas</h2>
@@ -66,9 +66,7 @@
                 <button type="button" id="btn-limpiar" class="btn-secundario">Limpiar Historial</button>
             </div>
 
-            <div id="grid-pegatinas" class="grid-pegatinas">
-                <!-- Las pegatinas se generan dinámicamente con JavaScript -->
-            </div>
+            <div id="grid-pegatinas" class="grid-pegatinas"></div>
         </section>
     </div>
 
