@@ -1,0 +1,238 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f4f8;
+    color: #333333;
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor-principal {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    max-width: 1100px;
+}
+
+@media (min-width: 850px) {
+    .contenedor-principal {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+    }
+}
+
+.tarjeta {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+h1, h2 {
+    color: #1e293b;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.panel-conversor {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.grupo-entrada, .grupo-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+input[type="number"], select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+input[type="number"]:focus, select:focus {
+    border-color: #3b82f6;
+}
+
+.fila-selectores {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.btn-swap {
+    background: #e2e8f0;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 15px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-swap:hover {
+    background: #cbd5e1;
+}
+
+.btn-principal {
+    background: #3b82f6;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-principal:hover {
+    background: #2563eb;
+}
+
+.btn-secundario {
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-secundario:hover {
+    background: #dc2626;
+}
+
+.caja-resultado {
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.caja-resultado h2 {
+    font-size: 1rem;
+    color: #64748b;
+    margin-bottom: 8px;
+}
+
+#resultado-texto {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0f172a;
+}
+
+#tipo-cambio-texto {
+    display: block;
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-top: 4px;
+}
+
+.nota-subtitulo {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-top: 12px;
+}
+
+/* Estilos de la sección de Pegatinas */
+.encabezado-pegatinas {
+    margin-bottom: 20px;
+}
+
+.encabezado-pegatinas p {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 10px;
+}
+
+.grid-pegatinas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    max-height: 450px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.pegatina {
+    background: #fef08a;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.1);
+    transform: rotate(-1deg);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+}
+
+.pegatina:nth-child(even) {
+    background: #bfdbfe;
+    transform: rotate(1deg);
+}
+
+.pegatina:nth-child(3n) {
+    background: #bbf7d0;
+    transform: rotate(-2deg);
+}
+
+.pegatina:hover {
+    transform: scale(1.03) rotate(0deg);
+    box-shadow: 5px 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.pegatina-titulo {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #475569;
+    margin-bottom: 5px;
+}
+
+.pegatina-monto {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #0f172a;
+}
+
+.pegatina-detalle {
+    font-size: 0.75rem;
+    color: #475569;
+    margin-top: 5px;
+}
+
+.pegatina-fecha {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    margin-top: 8px;
+    text-align: right;
+}
