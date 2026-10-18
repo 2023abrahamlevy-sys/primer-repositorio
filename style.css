@@ -1,202 +1,342 @@
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    box-sizing: border-box;
 }
 
 body {
-    background-color: #f8fafc;
-    color: #1e293b;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    color: #222;
     padding: 30px;
-    display: flex;
-    justify-content: center;
 }
 
-.contenedor-principal {
-    width: 100%;
-    max-width: 900px;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
+
+/* ========================= */
+/* CONTENEDOR PRINCIPAL */
+/* ========================= */
+
+.contenedor {
+    max-width: 1200px;
+    margin: auto;
 }
 
-/* Tarjetas principales */
-.tarjeta {
-    background: #ffffff;
-    border: 2px solid #1e293b;
-    border-radius: 16px;
-    padding: 24px;
+
+/* ========================= */
+/* SECCIÓN CONVERSOR */
+/* ========================= */
+
+.conversor {
+    background: white;
+    border: 2px solid #222;
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 25px;
+    box-shadow: 5px 5px 0px #222;
 }
 
-h1 {
-    font-size: 1.8rem;
-    font-weight: 800;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.conversor h1 {
+    font-size: 32px;
+    margin-bottom: 30px;
 }
 
-/* Disposición de dos columnas en la parte superior */
-.layout-conversor {
+
+/* CONTENIDO DEL CONVERSOR */
+
+.conversor-contenido {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 30px;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
 }
 
-@media (min-width: 768px) {
-    .layout-conversor {
-        grid-template-columns: 1fr 1fr;
-    }
-}
 
-/* Formulario */
-.columna-formulario {
+/* FORMULARIO */
+
+.formulario {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-}
-
-.grupo-campo {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    flex: 1;
 }
 
 label {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: #0f172a;
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
 }
 
-input, select {
+input,
+select {
     width: 100%;
-    padding: 12px 14px;
-    border: 1.5px solid #0f172a;
-    border-radius: 10px;
-    font-size: 1rem;
-    background: #ffffff;
-    outline: none;
-}
-
-.fila-selectores {
-    display: flex;
-    align-items: flex-end;
-    gap: 10px;
-}
-
-/* Botón azul principal */
-.btn-convertir {
-    background: #2563eb;
-    color: #ffffff;
-    border: none;
-    border-radius: 10px;
     padding: 14px;
-    font-size: 1.05rem;
-    font-weight: 800;
+    border: 2px solid #333;
+    border-radius: 10px;
+    font-size: 16px;
+    background: white;
+}
+
+
+/* MONEDAS */
+
+.monedas {
+    display: grid;
+    grid-template-columns: 1fr 50px 1fr;
+    align-items: end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.intercambiar {
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background: #3478db;
+    color: white;
+    font-size: 25px;
     cursor: pointer;
-    width: 100%;
-    margin-top: 8px;
-    transition: background 0.2s ease;
+}
+
+.intercambiar:hover {
+    transform: rotate(180deg);
+    transition: 0.3s;
+}
+
+
+/* BOTÓN CONVERTIR */
+
+.btn-convertir {
+    margin-top: 25px;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: #3478db;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .btn-convertir:hover {
-    background: #1d4ed8;
+    background: #245fae;
 }
 
-/* Botón circular de intercambio */
-.btn-swap {
-    background: #3b82f6;
-    color: #ffffff;
-    border: none;
-    border-radius: 50%;
-    width: 42px;
-    height: 42px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-bottom: 2px;
-}
 
-/* Columna Derecha (Resultado) */
-.columna-resultado {
+/* ========================= */
+/* RESULTADO */
+/* ========================= */
+
+.resultado {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+}
+
+.resultado h2 {
+    text-align: center;
+    color: #3478db;
+    margin-bottom: 15px;
+}
+
+.resultado-caja {
+    border: 3px solid #3ca35c;
+    border-radius: 15px;
+    padding: 30px;
+    background: #f4fff6;
     text-align: center;
 }
 
-.titulo-resultado {
-    color: #2563eb;
-    font-size: 1.1rem;
-    font-weight: 800;
-    margin-bottom: 12px;
+#textoResultado {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 15px;
 }
 
-.caja-verde {
-    background: #f0fdf4;
-    border: 2px solid #22c55e;
-    border-radius: 14px;
-    width: 100%;
-    padding: 24px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+#tipoCambio {
+    font-size: 14px;
+    color: #555;
 }
 
-.texto-principal {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: #0f172a;
+.mensaje {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 17px;
 }
 
-.texto-secundario {
-    font-size: 0.8rem;
-    color: #64748b;
+
+/* ========================= */
+/* SECCIÓN PEGATINAS */
+/* ========================= */
+
+.pegatinas {
+    background: white;
+    border: 2px solid #222;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 5px 5px 0px #222;
 }
 
-.nota-pegatina {
-    font-size: 0.85rem;
-    color: #334155;
-    margin-top: 16px;
-}
 
-/* Sección de Pegatinas */
-.encabezado-pegatinas {
+/* TÍTULO */
+
+.titulo-pegatinas {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 20px;
+    align-items: center;
+    margin-bottom: 30px;
 }
 
-.encabezado-pegatinas h2 {
-    font-size: 1.4rem;
-    font-weight: 800;
+.titulo-pegatinas h2 {
+    font-size: 30px;
 }
 
-.encabezado-pegatinas p {
-    font-size: 0.9rem;
-    color: #64748b;
+.titulo-pegatinas p {
+    margin-top: 8px;
+    color: #666;
 }
+
+
+/* BOTÓN BORRAR */
 
 .btn-borrar {
-    background: #ffffff;
-    border: 1.5px solid #0f172a;
-    border-radius: 8px;
-    padding: 8px 14px;
-    font-size: 0.85rem;
-    font-weight: 700;
+    padding: 12px 18px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background: white;
     cursor: pointer;
+    font-weight: bold;
 }
 
-.grid-pegatinas {
+.btn-borrar:hover {
+    background: #eee;
+}
+
+
+/* ========================= */
+/* PEGATINAS */
+/* ========================= */
+
+.contenedor-pegatinas {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+
+/* UNA PEGATINA */
+
+.pegatina {
+    min-height: 220px;
+    padding: 20px;
+    border: 3px solid #333;
+    border-radius: 20px;
+    text-align: center;
+    position: relative;
+    background: #fff;
+    box-shadow: 4px 4px 0px #ccc;
+    transform: rotate(-1deg);
+}
+
+.pegatina:nth-child(even) {
+    transform: rotate(1deg);
+}
+
+.pegatina:hover {
+    transform: scale(1.04) rotate(0deg);
+    transition: 0.2s;
+}
+
+
+/* BANDERA */
+
+.bandera {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+
+/* MONEDA */
+
+.pegatina h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+
+/* VALOR */
+
+.valor {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+
+/* INFORMACIÓN */
+
+.info {
+    font-size: 14px;
+    color: #555;
+    margin-top: 8px;
+}
+
+
+/* PEGATINA NUEVA */
+
+.nueva {
+    position: absolute;
+    top: -12px;
+    left: -10px;
+    background: #48a868;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 900px) {
+
+    .conversor-contenido {
+        grid-template-columns: 1fr;
+    }
+
+    .contenedor-pegatinas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .conversor,
+    .pegatinas {
+        padding: 20px;
+    }
+
+    .monedas {
+        grid-template-columns: 1fr;
+    }
+
+    .intercambiar {
+        margin: 10px auto;
+    }
+
+    .contenedor-pegatinas {
+        grid-template-columns: 1fr;
+    }
+
+    .titulo-pegatinas {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
 }
