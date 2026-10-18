@@ -1,4 +1,4 @@
-
+// Tasas de cambio fijas tomadas de referencia respecto a USD (dólar)
 const tasasDeCambio = {
     USD: 1.0,
     ARS: 1333.33,
