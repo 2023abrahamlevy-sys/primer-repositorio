@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Tasas de cambio fijas relativas al Peso Argentino (ARS)
+    // Tasas de cambio (base Peso Argentino)
     const tasas = {
         ARS: 1,
         USD: 0.00075,  // 1 USD = 1333.33 ARS
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         BRL: '🇧🇷'
     };
 
-    // Obtener elementos del HTML
+    // Referencias a elementos del DOM
     const inputMonto = document.getElementById('monto');
     const selectOrigen = document.getElementById('moneda-origen');
     const selectDestino = document.getElementById('moneda-destino');
@@ -27,78 +27,86 @@ document.addEventListener('DOMContentLoaded', () => {
     const txtTipoCambio = document.getElementById('tipo-cambio-texto');
     const gridPegatinas = document.getElementById('grid-pegatinas');
 
-    let pegatinas = JSON.parse(localStorage.getItem('pegatinas_guardadas')) || [];
+    // Recuperar pegatinas guardadas en localStorage
+    let pegatinas = JSON.parse(localStorage.getItem('pegatinas_divisas')) || [];
 
+    // Función principal para calcular la conversión
     function calcular() {
         const monto = parseFloat(inputMonto.value) || 0;
         const origen = selectOrigen.value;
         const destino = selectDestino.value;
 
-        // Convertir monto
+        // Conversión a ARS y luego a la moneda destino
         const montoEnARS = monto / tasas[origen];
         const resultadoFinal = montoEnARS * tasas[destino];
 
-        // Tipo de cambio unitario
+        // Calcular tipo de cambio unitario
         const valorUnitario = (1 / tasas[origen]) * tasas[destino];
 
-        txtResultado.textContent = `${monto.toLocaleString('es-AR')} ${origen} = ${resultadoFinal.toLocaleString('es-AR', {minimumFractionDigits: 2, maximumFractionDigits: 2})} ${destino}`;
-        txtTipoCambio.textContent = `Tipo de cambio: 1 ${origen} = ${valorUnitario.toLocaleString('es-AR', {minimumFractionDigits: 2, maximumFractionDigits: 4})} ${destino}`;
+        // Formatear números
+        const montoOrigenFormat = monto.toLocaleString('es-AR');
+        const resultadoFormat = resultadoFinal.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const tipoCambioFormat = (1 / valorUnitario).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        // Actualizar textos en pantalla (Sección Resultado)
+        txtResultado.textContent = `${montoOrigenFormat} ${origen} = ${resultadoFormat} ${destino}`;
+        txtTipoCambio.textContent = `Tipo de cambio: 1 ${destino} = ${tipoCambioFormat} ${origen}`;
 
         return {
-            montoOrigen: monto.toLocaleString('es-AR'),
+            montoOrigen: montoOrigenFormat,
             origen: origen,
-            montoDestino: resultadoFinal.toLocaleString('es-AR', {minimumFractionDigits: 2, maximumFractionDigits: 2}),
+            montoDestino: resultadoFormat,
             destino: destino,
             hora: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         };
     }
 
-    function agregarPegatina(datos) {
-        if (!datos || parseFloat(inputMonto.value) <= 0) return;
-        
+    // Función para guardar una nueva pegatina
+    function crearPegatina() {
+        const datos = calcular();
+        if (parseFloat(inputMonto.value) <= 0) return;
+
         pegatinas.unshift(datos);
-        localStorage.setItem('pegatinas_guardadas', JSON.stringify(pegatinas));
-        mostrarPegatinas();
+        localStorage.setItem('pegatinas_divisas', JSON.stringify(pegatinas));
+        renderizarPegatinas();
     }
 
-    function mostrarPegatinas() {
+    // Dibujar las pegatinas en el panel de la derecha
+    function renderizarPegatinas() {
         gridPegatinas.innerHTML = '';
 
         if (pegatinas.length === 0) {
-            gridPegatinas.innerHTML = '<p style="font-size:0.85rem; color:#94a3b8;">No hay pegatinas aún.</p>';
+            gridPegatinas.innerHTML = '<p style="color: #64748b; font-size: 0.9rem;">No hay pegatinas guardadas aún.</p>';
             return;
         }
 
         pegatinas.forEach(p => {
-            const item = document.createElement('div');
-            item.className = 'pegatina';
-            item.innerHTML = `
-                <div class="pegatina-titulo">CONVERSIÓN</div>
+            const card = document.createElement('div');
+            card.className = 'pegatina';
+            card.innerHTML = `
+                <div class="badge-nueva">NUEVA</div>
                 <div class="pegatina-monto">${p.montoDestino} ${p.destino}</div>
                 <div class="pegatina-detalle">${banderas[p.origen]} ${p.montoOrigen} ${p.origen} ➔ ${banderas[p.destino]} ${p.destino}</div>
-                <div class="pegatina-fecha">Hora: ${p.hora}</div>
+                <div class="pegatina-fecha">${p.hora} hs</div>
             `;
-            gridPegatinas.appendChild(item);
+            gridPegatinas.appendChild(card);
         });
     }
 
     // Eventos
-    btnConvertir.addEventListener('click', () => {
-        const datos = calcular();
-        agregarPegatina(datos);
-    });
+    btnConvertir.addEventListener('click', crearPegatina);
 
     btnIntercambiar.addEventListener('click', () => {
-        const aux = selectOrigen.value;
+        const temp = selectOrigen.value;
         selectOrigen.value = selectDestino.value;
-        selectDestino.value = aux;
+        selectDestino.value = temp;
         calcular();
     });
 
     btnLimpiar.addEventListener('click', () => {
         pegatinas = [];
-        localStorage.removeItem('pegatinas_guardadas');
-        mostrarPegatinas();
+        localStorage.removeItem('pegatinas_divisas');
+        renderizarPegatinas();
     });
 
     inputMonto.addEventListener('input', calcular);
@@ -107,5 +115,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Inicializar al cargar la página
     calcular();
-    mostrarPegatinas();
+    renderizarPegatinas();
 });
