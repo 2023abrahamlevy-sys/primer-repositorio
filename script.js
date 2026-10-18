@@ -1,128 +1,111 @@
-// Tasas de cambio fijas tomadas de referencia respecto a USD (dólar)
-const tasasDeCambio = {
-    USD: 1.0,
-    ARS: 1333.33,
-    EUR: 0.92,
-    GBP: 0.79,
-    BRL: 5.05
-};
-
-const banderas = {
-    ARS: '🇦🇷',
-    USD: '🇺🇸',
-    EUR: '🇪🇺',
-    GBP: '🇬🇧',
-    BRL: '🇧🇷'
-};
-
-// Referencias a elementos del DOM
-const inputMonto = document.getElementById('monto');
-const selectOrigen = document.getElementById('moneda-origen');
-const selectDestino = document.getElementById('moneda-destino');
-const btnConvertir = document.getElementById('btn-convertir');
-const btnIntercambiar = document.getElementById('btn-intercambiar');
-const btnLimpiar = document.getElementById('btn-limpiar');
-const txtResultado = document.getElementById('resultado-texto');
-const txtTipoCambio = document.getElementById('tipo-cambio-texto');
-const gridPegatinas = document.getElementById('grid-pegatinas');
-
-// Cargar pegatinas guardadas de localStorage al iniciar
-let listaPegatinas = JSON.parse(localStorage.getItem('pegatinas_divisas')) || [];
-
-function formatearNumero(numero) {
-    return new Intl.NumberFormat('es-AR', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    }).format(numero);
-}
-
-function calcularConversion() {
-    const monto = parseFloat(inputMonto.value);
-    const origen = selectOrigen.value;
-    const destino = selectDestino.value;
-
-    if (isNaN(monto) || monto <= 0) {
-        txtResultado.textContent = "Ingresa un monto válido";
-        txtTipoCambio.textContent = "";
-        return null;
-    }
-
-    // Convertir de moneda origen a USD y luego a la moneda destino
-    const montoEnUSD = monto / tasasDeCambio[origen];
-    const montoFinal = montoEnUSD * tasasDeCambio[destino];
-
-    // Calcular tipo de cambio individual (1 unidad de origen a destino)
-    const tipoCambioUnitario = (1 / tasasDeCambio[origen]) * tasasDeCambio[destino];
-
-    const resultadoFormateado = `${formatearNumero(monto)} ${origen} = ${formatearNumero(montoFinal)} ${destino}`;
-    const tipoCambioFormateado = `Tipo de cambio: 1 ${origen} = ${formatearNumero(tipoCambioUnitario)} ${destino}`;
-
-    txtResultado.textContent = resultadoFormateado;
-    txtTipoCambio.textContent = tipoCambioFormateado;
-
-    return {
-        montoOrigen: formatearNumero(monto),
-        monedaOrigen: origen,
-        montoDestino: formatearNumero(montoFinal),
-        monedaDestino: destino,
-        fecha: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+document.addEventListener('DOMContentLoaded', () => {
+    // Tasas de cambio fijas relativas al Peso Argentino (ARS)
+    const tasas = {
+        ARS: 1,
+        USD: 0.00075,  // 1 USD = 1333.33 ARS
+        EUR: 0.00069,
+        GBP: 0.00059,
+        BRL: 0.0038
     };
-}
 
-function crearPegatina(datos) {
-    if (!datos) return;
+    const banderas = {
+        ARS: '🇦🇷',
+        USD: '🇺🇸',
+        EUR: '🇪🇺',
+        GBP: '🇬🇧',
+        BRL: '🇧🇷'
+    };
 
-    listaPegatinas.unshift(datos); // Agregar al inicio de la lista
-    localStorage.setItem('pegatinas_divisas', JSON.stringify(listaPegatinas));
-    renderizarPegatinas();
-}
+    // Obtener elementos del HTML
+    const inputMonto = document.getElementById('monto');
+    const selectOrigen = document.getElementById('moneda-origen');
+    const selectDestino = document.getElementById('moneda-destino');
+    const btnConvertir = document.getElementById('btn-convertir');
+    const btnIntercambiar = document.getElementById('btn-intercambiar');
+    const btnLimpiar = document.getElementById('btn-limpiar');
+    const txtResultado = document.getElementById('resultado-texto');
+    const txtTipoCambio = document.getElementById('tipo-cambio-texto');
+    const gridPegatinas = document.getElementById('grid-pegatinas');
 
-function renderizarPegatinas() {
-    gridPegatinas.innerHTML = '';
+    let pegatinas = JSON.parse(localStorage.getItem('pegatinas_guardadas')) || [];
 
-    if (listaPegatinas.length === 0) {
-        gridPegatinas.innerHTML = '<p style="color: #94a3b8; font-size: 0.9rem;">No hay pegatinas guardadas aún.</p>';
-        return;
+    function calcular() {
+        const monto = parseFloat(inputMonto.value) || 0;
+        const origen = selectOrigen.value;
+        const destino = selectDestino.value;
+
+        // Convertir monto
+        const montoEnARS = monto / tasas[origen];
+        const resultadoFinal = montoEnARS * tasas[destino];
+
+        // Tipo de cambio unitario
+        const valorUnitario = (1 / tasas[origen]) * tasas[destino];
+
+        txtResultado.textContent = `${monto.toLocaleString('es-AR')} ${origen} = ${resultadoFinal.toLocaleString('es-AR', {minimumFractionDigits: 2, maximumFractionDigits: 2})} ${destino}`;
+        txtTipoCambio.textContent = `Tipo de cambio: 1 ${origen} = ${valorUnitario.toLocaleString('es-AR', {minimumFractionDigits: 2, maximumFractionDigits: 4})} ${destino}`;
+
+        return {
+            montoOrigen: monto.toLocaleString('es-AR'),
+            origen: origen,
+            montoDestino: resultadoFinal.toLocaleString('es-AR', {minimumFractionDigits: 2, maximumFractionDigits: 2}),
+            destino: destino,
+            hora: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
     }
 
-    listaPegatinas.forEach((p) => {
-        const div = document.createElement('div');
-        div.className = 'pegatina';
-        div.innerHTML = `
-            <div class="pegatina-titulo">CONVERSIÓN</div>
-            <div class="pegatina-monto">${p.montoDestino} ${p.monedaDestino}</div>
-            <div class="pegatina-detalle">${banderas[p.monedaOrigen]} ${p.montoOrigen} ${p.monedaOrigen} ➔ ${banderas[p.monedaDestino]} ${p.monedaDestino}</div>
-            <div class="pegatina-fecha">Hoy ${p.fecha} hs</div>
-        `;
-        gridPegatinas.appendChild(div);
+    function agregarPegatina(datos) {
+        if (!datos || parseFloat(inputMonto.value) <= 0) return;
+        
+        pegatinas.unshift(datos);
+        localStorage.setItem('pegatinas_guardadas', JSON.stringify(pegatinas));
+        mostrarPegatinas();
+    }
+
+    function mostrarPegatinas() {
+        gridPegatinas.innerHTML = '';
+
+        if (pegatinas.length === 0) {
+            gridPegatinas.innerHTML = '<p style="font-size:0.85rem; color:#94a3b8;">No hay pegatinas aún.</p>';
+            return;
+        }
+
+        pegatinas.forEach(p => {
+            const item = document.createElement('div');
+            item.className = 'pegatina';
+            item.innerHTML = `
+                <div class="pegatina-titulo">CONVERSIÓN</div>
+                <div class="pegatina-monto">${p.montoDestino} ${p.destino}</div>
+                <div class="pegatina-detalle">${banderas[p.origen]} ${p.montoOrigen} ${p.origen} ➔ ${banderas[p.destino]} ${p.destino}</div>
+                <div class="pegatina-fecha">Hora: ${p.hora}</div>
+            `;
+            gridPegatinas.appendChild(item);
+        });
+    }
+
+    // Eventos
+    btnConvertir.addEventListener('click', () => {
+        const datos = calcular();
+        agregarPegatina(datos);
     });
-}
 
-// Event Listeners
-btnConvertir.addEventListener('click', () => {
-    const datosConversion = calcularConversion();
-    if (datosConversion) {
-        crearPegatina(datosConversion);
-    }
+    btnIntercambiar.addEventListener('click', () => {
+        const aux = selectOrigen.value;
+        selectOrigen.value = selectDestino.value;
+        selectDestino.value = aux;
+        calcular();
+    });
+
+    btnLimpiar.addEventListener('click', () => {
+        pegatinas = [];
+        localStorage.removeItem('pegatinas_guardadas');
+        mostrarPegatinas();
+    });
+
+    inputMonto.addEventListener('input', calcular);
+    selectOrigen.addEventListener('change', calcular);
+    selectDestino.addEventListener('change', calcular);
+
+    // Inicializar al cargar la página
+    calcular();
+    mostrarPegatinas();
 });
-
-btnIntercambiar.addEventListener('click', () => {
-    const temp = selectOrigen.value;
-    selectOrigen.value = selectDestino.value;
-    selectDestino.value = temp;
-    calcularConversion();
-});
-
-btnLimpiar.addEventListener('click', () => {
-    listaPegatinas = [];
-    localStorage.removeItem('pegatinas_divisas');
-    renderizarPegatinas();
-});
-
-inputMonto.addEventListener('input', calcularConversion);
-selectOrigen.addEventListener('change', calcularConversion);
-selectDestino.addEventListener('change', calcularConversion);
-
-// Inicializar al cargar la página
-calcularConversion();
-renderizarPegatinas();
