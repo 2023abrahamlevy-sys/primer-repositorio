@@ -1,1 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Conversor de Divisas</title>
+
+    <link rel="stylesheet" href="stilex.css">
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <!-- ========================= -->
+        <!-- SECCIÓN 1: CONVERSOR -->
+        <!-- ========================= -->
+
+        <section class="conversor">
+
+            <h1>💱 Conversor de Divisas</h1>
+
+            <div class="conversor-contenido">
+
+                <div class="formulario">
+
+                    <label for="monto">Monto</label>
+
+                    <input 
+                        type="number" 
+                        id="monto" 
+                        placeholder="Ingrese un monto"
+                        value="1000"
+                    >
+
+                    <div class="monedas">
+
+                        <div>
+                            <label for="monedaOrigen">Desde</label>
+
+                            <select id="monedaOrigen">
+                                <option value="ARS">🇦🇷 ARS - Peso Argentino</option>
+                                <option value="USD">🇺🇸 USD - Dólar</option>
+                                <option value="EUR">🇪🇺 EUR - Euro</option>
+                                <option value="GBP">🇬🇧 GBP - Libra</option>
+                                <option value="BRL">🇧🇷 BRL - Real</option>
+                            </select>
+                        </div>
+
+                        <button class="intercambiar" onclick="intercambiarMonedas()">
+                            ⇄
+                        </button>
+
+                        <div>
+                            <label for="monedaDestino">Hacia</label>
+
+                            <select id="monedaDestino">
+                                <option value="USD">🇺🇸 USD - Dólar</option>
+                                <option value="ARS">🇦🇷 ARS - Peso Argentino</option>
+                                <option value="EUR">🇪🇺 EUR - Euro</option>
+                                <option value="GBP">🇬🇧 GBP - Libra</option>
+                                <option value="BRL">🇧🇷 BRL - Real</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <button class="btn-convertir" onclick="convertir()">
+                        CONVERTIR
+                    </button>
+
+                </div>
+
+
+                <!-- RESULTADO -->
+
+                <div class="resultado">
+
+                    <h2>RESULTADO</h2>
+
+                    <div class="resultado-caja">
+
+                        <p id="textoResultado">
+                            1.000 ARS = 0,75 USD
+                        </p>
+
+                        <span id="tipoCambio">
+                            Tipo de cambio: 1 USD = 1.333,33 ARS
+                        </span>
+
+                    </div>
+
+                    <p class="mensaje">
+                        El resultado se agrega automáticamente como una nueva pegatina ✨
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- SECCIÓN 2: PEGATINAS -->
+        <!-- ========================= -->
+
+        <section class="pegatinas">
+
+            <div class="titulo-pegatinas">
+
+                <div>
+                    <h2>🎟️ Sistema de Pegatinas</h2>
+
+                    <p>
+                        Tus conversiones se guardan aquí
+                        como pegatinas coleccionables.
+                    </p>
+                </div>
+
+                <button class="btn-borrar" onclick="borrarPegatinas()">
+                    🗑️ Borrar todo
+                </button>
+
+            </div>
+
+
+            <!-- CONTENEDOR DE PEGATINAS -->
+
+            <div id="contenedorPegatinas" class="contenedor-pegatinas">
+
+                <!-- Las pegatinas aparecerán automáticamente aquí -->
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
