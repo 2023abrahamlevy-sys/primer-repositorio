@@ -2,176 +2,201 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
 body {
-    background-color: #f0f4f8;
-    color: #333;
-    padding: 20px;
+    background-color: #f8fafc;
+    color: #1e293b;
+    padding: 30px;
     display: flex;
     justify-content: center;
 }
 
 .contenedor-principal {
+    width: 100%;
+    max-width: 900px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    width: 100%;
-    max-width: 1000px;
+    gap: 25px;
+}
+
+/* Tarjetas principales */
+.tarjeta {
+    background: #ffffff;
+    border: 2px solid #1e293b;
+    border-radius: 16px;
+    padding: 24px;
+}
+
+h1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Disposición de dos columnas en la parte superior */
+.layout-conversor {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
 }
 
 @media (min-width: 768px) {
-    .contenedor-principal {
-        display: grid;
+    .layout-conversor {
         grid-template-columns: 1fr 1fr;
     }
 }
 
-.tarjeta {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-h1, h2 {
-    color: #1e293b;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.panel-conversor {
+/* Formulario */
+.columna-formulario {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 16px;
 }
 
-.grupo-entrada, .grupo-selector {
+.grupo-campo {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
     flex: 1;
 }
 
 label {
-    font-size: 0.85rem;
-    font-weight: bold;
-    color: #64748b;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #0f172a;
 }
 
 input, select {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
+    padding: 12px 14px;
+    border: 1.5px solid #0f172a;
+    border-radius: 10px;
     font-size: 1rem;
+    background: #ffffff;
+    outline: none;
 }
 
 .fila-selectores {
     display: flex;
     align-items: flex-end;
-    gap: 8px;
+    gap: 10px;
 }
 
-.btn-swap {
-    background: #e2e8f0;
-    border: none;
-    border-radius: 6px;
-    padding: 10px 12px;
-    font-size: 1.1rem;
-    cursor: pointer;
-}
-
-.btn-principal {
+/* Botón azul principal */
+.btn-convertir {
     background: #2563eb;
     color: #ffffff;
     border: none;
-    border-radius: 6px;
-    padding: 12px;
-    font-size: 1rem;
-    font-weight: bold;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 1.05rem;
+    font-weight: 800;
     cursor: pointer;
+    width: 100%;
+    margin-top: 8px;
+    transition: background 0.2s ease;
 }
 
-.btn-secundario {
-    background: #ef4444;
-    color: white;
+.btn-convertir:hover {
+    background: #1d4ed8;
+}
+
+/* Botón circular de intercambio */
+.btn-swap {
+    background: #3b82f6;
+    color: #ffffff;
     border: none;
-    border-radius: 4px;
-    padding: 5px 10px;
-    font-size: 0.8rem;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    font-size: 1.2rem;
     cursor: pointer;
-    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-bottom: 2px;
 }
 
-.caja-resultado {
-    background: #f8fafc;
-    border: 2px dashed #cbd5e1;
-    border-radius: 8px;
-    padding: 15px;
+/* Columna Derecha (Resultado) */
+.columna-resultado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
 }
 
-#resultado-texto {
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin-bottom: 5px;
+.titulo-resultado {
+    color: #2563eb;
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin-bottom: 12px;
 }
 
-#tipo-cambio-texto {
-    font-size: 0.85rem;
+.caja-verde {
+    background: #f0fdf4;
+    border: 2px solid #22c55e;
+    border-radius: 14px;
+    width: 100%;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.texto-principal {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.texto-secundario {
+    font-size: 0.8rem;
     color: #64748b;
 }
 
-.nota-subtitulo {
-    font-size: 0.75rem;
-    color: #94a3b8;
-    margin-top: 8px;
+.nota-pegatina {
+    font-size: 0.85rem;
+    color: #334155;
+    margin-top: 16px;
+}
+
+/* Sección de Pegatinas */
+.encabezado-pegatinas {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.encabezado-pegatinas h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.encabezado-pegatinas p {
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.btn-borrar {
+    background: #ffffff;
+    border: 1.5px solid #0f172a;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
 }
 
 .grid-pegatinas {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 12px;
-    max-height: 400px;
-    overflow-y: auto;
-    margin-top: 15px;
-}
-
-.pegatina {
-    background: #fef08a;
-    border-radius: 8px;
-    padding: 12px;
-    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
-    transform: rotate(-1deg);
-}
-
-.pegatina:nth-child(even) {
-    background: #bfdbfe;
-    transform: rotate(1deg);
-}
-
-.pegatina-titulo {
-    font-size: 0.75rem;
-    font-weight: bold;
-    color: #475569;
-}
-
-.pegatina-monto {
-    font-size: 1rem;
-    font-weight: bold;
-    margin: 4px 0;
-}
-
-.pegatina-detalle {
-    font-size: 0.75rem;
-    color: #334155;
-}
-
-.pegatina-fecha {
-    font-size: 0.65rem;
-    color: #64748b;
-    margin-top: 6px;
-    text-align: right;
+    gap: 15px;
 }
