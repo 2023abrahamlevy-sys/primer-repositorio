@@ -1,342 +1,520 @@
+/* ==============================
+   ESTILOS GENERALES
+============================== */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+:root {
+    --azul: #2864dc;
+    --azul-oscuro: #173b80;
+    --violeta: #8054dc;
+    --verde: #26965e;
+    --fondo: #f4f6fc;
+    --texto: #17233d;
+    --gris: #69758a;
+    --borde: #dfe5f0;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    color: #222;
-    padding: 30px;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+    padding: 25px;
 }
 
+/* ==============================
+   ENCABEZADO
+============================== */
 
-/* ========================= */
-/* CONTENEDOR PRINCIPAL */
-/* ========================= */
-
-.contenedor {
-    max-width: 1200px;
-    margin: auto;
-}
-
-
-/* ========================= */
-/* SECCIÓN CONVERSOR */
-/* ========================= */
-
-.conversor {
+.encabezado {
+    max-width: 1400px;
+    margin: 0 auto 25px;
+    padding: 22px 28px;
     background: white;
-    border: 2px solid #222;
+    border: 1px solid var(--borde);
     border-radius: 20px;
-    padding: 30px;
-    margin-bottom: 25px;
-    box-shadow: 5px 5px 0px #222;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    box-shadow: 0 5px 20px #1d31500b;
 }
 
-.conversor h1 {
-    font-size: 32px;
-    margin-bottom: 30px;
+.logo {
+    font-size: 42px;
 }
 
+.encabezado h1 {
+    font-size: clamp(23px, 3vw, 34px);
+    color: var(--azul-oscuro);
+}
 
-/* CONTENIDO DEL CONVERSOR */
+.encabezado p {
+    margin-top: 5px;
+    color: var(--gris);
+}
 
-.conversor-contenido {
+/* ==============================
+   DISTRIBUCIÓN PRINCIPAL
+============================== */
+
+.aplicacion {
+    max-width: 1400px;
+    margin: auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    grid-template-columns: minmax(300px, 0.9fr) minmax(0, 1.1fr);
+    gap: 25px;
+    align-items: start;
 }
 
+.panel {
+    background: white;
+    border: 1px solid var(--borde);
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow: 0 8px 25px #1d31500b;
+    min-width: 0;
+}
 
-/* FORMULARIO */
+.titulo-seccion {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
 
-.formulario {
+.numero {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #e8efff;
+    color: var(--azul);
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.numero-violeta {
+    background: #f0e9ff;
+    color: var(--violeta);
+}
+
+.titulo-seccion h2 {
+    font-size: 23px;
+}
+
+.titulo-seccion p {
+    color: var(--gris);
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 5px;
+}
+
+/* ==============================
+   FORMULARIO
+============================== */
+
+#formulario {
     display: flex;
     flex-direction: column;
 }
 
-label {
-    font-weight: bold;
+#formulario label {
+    font-weight: 700;
+    font-size: 14px;
     margin-bottom: 8px;
-    display: block;
 }
 
-input,
-select {
+#formulario input,
+#formulario select {
     width: 100%;
+    min-width: 0;
     padding: 14px;
-    border: 2px solid #333;
-    border-radius: 10px;
-    font-size: 16px;
+    border: 1px solid #d6deed;
+    border-radius: 11px;
     background: white;
+    color: var(--texto);
+    font-size: 15px;
+    margin-bottom: 20px;
+    outline: none;
 }
 
-
-/* MONEDAS */
-
-.monedas {
-    display: grid;
-    grid-template-columns: 1fr 50px 1fr;
-    align-items: end;
-    gap: 10px;
-    margin-top: 20px;
+#formulario input:focus,
+#formulario select:focus {
+    border-color: var(--azul);
+    box-shadow: 0 0 0 3px #2864dc18;
 }
 
-.intercambiar {
-    height: 45px;
-    border: none;
+.boton-intercambiar {
+    align-self: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid #d6deed;
     border-radius: 50%;
-    background: #3478db;
-    color: white;
-    font-size: 25px;
+    background: #eef3ff;
+    color: var(--azul);
+    font-size: 27px;
     cursor: pointer;
+    margin: -10px 0 15px;
+    transition: transform 0.2s, background 0.2s;
 }
 
-.intercambiar:hover {
+.boton-intercambiar:hover {
+    background: #dce7ff;
     transform: rotate(180deg);
-    transition: 0.3s;
 }
 
-
-/* BOTÓN CONVERTIR */
-
-.btn-convertir {
-    margin-top: 25px;
-    padding: 15px;
+.boton-convertir {
+    width: 100%;
     border: none;
     border-radius: 12px;
-    background: #3478db;
+    padding: 16px;
     color: white;
-    font-size: 18px;
-    font-weight: bold;
+    background: linear-gradient(120deg, var(--azul), #5488f0);
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
     cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.btn-convertir:hover {
-    background: #245fae;
+.boton-convertir:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 18px #2864dc35;
 }
 
-
-/* ========================= */
-/* RESULTADO */
-/* ========================= */
+/* ==============================
+   RESULTADO
+============================== */
 
 .resultado {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.resultado h2 {
-    text-align: center;
-    color: #3478db;
-    margin-bottom: 15px;
-}
-
-.resultado-caja {
-    border: 3px solid #3ca35c;
+    margin-top: 24px;
+    padding: 22px;
+    border: 2px solid #b4e4c7;
+    background: #f1fff6;
     border-radius: 15px;
-    padding: 30px;
-    background: #f4fff6;
-    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+.etiqueta-resultado {
+    display: block;
+    color: var(--verde);
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
 }
 
 #textoResultado {
-    font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 15px;
+    color: #12663b;
+    font-size: clamp(22px, 2.5vw, 29px);
+    font-weight: 800;
+    line-height: 1.4;
 }
 
-#tipoCambio {
-    font-size: 14px;
-    color: #555;
+.tipo-cambio {
+    margin-top: 12px;
+    color: #476453;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.estado-tasa {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #52735e;
 }
 
 .mensaje {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 17px;
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--gris);
 }
 
+/* ==============================
+   BARRA DE COLECCIÓN
+============================== */
 
-/* ========================= */
-/* SECCIÓN PEGATINAS */
-/* ========================= */
-
-.pegatinas {
-    background: white;
-    border: 2px solid #222;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 5px 5px 0px #222;
-}
-
-
-/* TÍTULO */
-
-.titulo-pegatinas {
+.barra-coleccion {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    gap: 15px;
+    margin-bottom: 23px;
 }
 
-.titulo-pegatinas h2 {
-    font-size: 30px;
+.barra-coleccion strong {
+    font-size: 16px;
 }
 
-.titulo-pegatinas p {
-    margin-top: 8px;
-    color: #666;
+.barra-coleccion p {
+    font-size: 13px;
+    color: var(--gris);
+    margin-top: 5px;
 }
 
-
-/* BOTÓN BORRAR */
-
-.btn-borrar {
-    padding: 12px 18px;
-    border: 2px solid #333;
-    border-radius: 10px;
+.boton-borrar {
+    flex-shrink: 0;
+    padding: 10px 13px;
     background: white;
+    border: 1px solid #e1c9c9;
+    color: #b33340;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 700;
     cursor: pointer;
-    font-weight: bold;
 }
 
-.btn-borrar:hover {
-    background: #eee;
+.boton-borrar:hover {
+    background: #fff0f0;
 }
 
+/* ==============================
+   REJILLA DE PEGATINAS
+============================== */
 
-/* ========================= */
-/* PEGATINAS */
-/* ========================= */
-
-.contenedor-pegatinas {
+.rejilla-pegatinas {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
 }
-
-
-/* UNA PEGATINA */
 
 .pegatina {
-    min-height: 220px;
-    padding: 20px;
-    border: 3px solid #333;
-    border-radius: 20px;
-    text-align: center;
-    position: relative;
-    background: #fff;
-    box-shadow: 4px 4px 0px #ccc;
-    transform: rotate(-1deg);
-}
+    --color-pegatina: #319b70;
+    --fondo-pegatina: #f1fff7;
 
-.pegatina:nth-child(even) {
-    transform: rotate(1deg);
+    position: relative;
+    min-width: 0;
+    padding: 22px 13px 17px;
+    border: 2px solid var(--color-pegatina);
+    border-radius: 19px;
+    background: var(--fondo-pegatina);
+    text-align: center;
+    box-shadow: 3px 5px 0 #18233b12;
+    overflow-wrap: anywhere;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .pegatina:hover {
-    transform: scale(1.04) rotate(0deg);
-    transition: 0.2s;
+    transform: translateY(-4px) rotate(-1deg);
+    box-shadow: 4px 9px 0 #18233b12;
 }
 
+.pegatina:nth-child(4n + 2) {
+    --color-pegatina: #8b60d9;
+    --fondo-pegatina: #f8f3ff;
+}
 
-/* BANDERA */
+.pegatina:nth-child(4n + 3) {
+    --color-pegatina: #e0a32b;
+    --fondo-pegatina: #fffaf0;
+}
+
+.pegatina:nth-child(4n + 4) {
+    --color-pegatina: #3e91df;
+    --fondo-pegatina: #f1f9ff;
+}
+
+.etiqueta-nueva {
+    position: absolute;
+    top: -10px;
+    left: 8px;
+    padding: 5px 9px;
+    border-radius: 7px;
+    background: #239b62;
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    transform: rotate(-7deg);
+}
 
 .bandera {
-    font-size: 45px;
-    margin-bottom: 10px;
+    font-size: 43px;
+    margin: 5px 0 8px;
 }
 
+.codigo-moneda {
+    font-size: 19px;
+    color: var(--color-pegatina);
+    font-weight: 900;
+}
 
-/* MONEDA */
+.nombre-moneda {
+    font-size: 11px;
+    color: var(--gris);
+    margin-top: 4px;
+}
 
-.pegatina h3 {
-    font-size: 22px;
+.valor-pegatina {
+    font-size: clamp(22px, 2.5vw, 30px);
+    font-weight: 900;
+    color: var(--color-pegatina);
+    margin: 13px 0;
+}
+
+.detalle-pegatina {
+    font-size: 12px;
+    color: #49566d;
+    line-height: 1.7;
+}
+
+.estrellas {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+    margin-top: 13px;
+}
+
+.estrella {
+    padding: 2px;
+    border: none;
+    background: transparent;
+    color: #c4cbd8;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.estrella.activa {
+    color: #f2b72f;
+}
+
+.estrella:focus-visible,
+.boton-eliminar:focus-visible,
+.boton-borrar:focus-visible {
+    outline: 3px solid var(--azul);
+    outline-offset: 3px;
+}
+
+.pie-pegatina {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.boton-eliminar {
+    border: 1px solid #e8b9bf;
+    border-radius: 7px;
+    padding: 6px 9px;
+    background: white;
+    color: #b33340;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.boton-eliminar:hover {
+    background: #fff0f0;
+}
+
+/* ==============================
+   COLECCIÓN VACÍA
+============================== */
+
+.coleccion-vacia {
+    padding: 50px 15px;
+    text-align: center;
+    color: var(--gris);
+}
+
+.coleccion-vacia span {
+    display: block;
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+.coleccion-vacia h3 {
+    color: var(--texto);
+    font-size: 18px;
     margin-bottom: 8px;
 }
 
-
-/* VALOR */
-
-.valor {
-    font-size: 30px;
-    font-weight: bold;
-    margin: 10px 0;
-}
-
-
-/* INFORMACIÓN */
-
-.info {
+.coleccion-vacia p {
     font-size: 14px;
-    color: #555;
-    margin-top: 8px;
+    line-height: 1.6;
 }
 
-
-/* PEGATINA NUEVA */
-
-.nueva {
-    position: absolute;
-    top: -12px;
-    left: -10px;
-    background: #48a868;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 12px;
+.oculto {
+    display: none !important;
 }
 
+/* ==============================
+   PIE DE PÁGINA
+============================== */
 
-/* ========================= */
-/* RESPONSIVE */
-/* ========================= */
+footer {
+    max-width: 1400px;
+    margin: 25px auto 0;
+    text-align: center;
+    color: var(--gris);
+    font-size: 13px;
+    padding: 15px;
+}
 
-@media (max-width: 900px) {
+/* ==============================
+   DISEÑO PARA TABLETS Y CELULARES
+============================== */
 
-    .conversor-contenido {
+@media (max-width: 950px) {
+    .aplicacion {
         grid-template-columns: 1fr;
     }
 
-    .contenedor-pegatinas {
-        grid-template-columns: repeat(2, 1fr);
+    .rejilla-pegatinas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-
 }
 
-
-@media (max-width: 600px) {
-
+@media (max-width: 480px) {
     body {
-        padding: 15px;
+        padding: 12px;
     }
 
-    .conversor,
-    .pegatinas {
-        padding: 20px;
+    .encabezado {
+        padding: 18px;
+        gap: 12px;
     }
 
-    .monedas {
-        grid-template-columns: 1fr;
+    .logo {
+        font-size: 32px;
     }
 
-    .intercambiar {
-        margin: 10px auto;
+    .panel {
+        padding: 18px;
     }
 
-    .contenedor-pegatinas {
-        grid-template-columns: 1fr;
+    .titulo-seccion h2 {
+        font-size: 19px;
     }
 
-    .titulo-pegatinas {
-        flex-direction: column;
+    .titulo-seccion p {
+        font-size: 13px;
+    }
+
+    .numero {
+        width: 40px;
+        height: 40px;
+        font-size: 21px;
+    }
+
+    .rejilla-pegatinas {
+        gap: 12px;
+    }
+
+    .pegatina {
+        padding: 18px 8px 13px;
+    }
+
+    .barra-coleccion {
         align-items: flex-start;
-        gap: 15px;
     }
 
+    .boton-borrar {
+        padding: 9px;
+        font-size: 12px;
+    }
 }
