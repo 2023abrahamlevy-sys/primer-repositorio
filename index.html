@@ -1,145 +1,123 @@
-
+```html
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Conversor de Divisas</title>
-
-    <link rel="stylesheet" href="stilex.css">
+    <title>Conversor de Divisas | Mi Colección</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <div class="contenedor">
+    <header class="encabezado">
+        <div class="logo">🌎</div>
+        <div>
+            <h1>Conversor de Divisas</h1>
+            <p>Tu dinero, en otra moneda</p>
+        </div>
+    </header>
 
-        <!-- ========================= -->
+    <main class="aplicacion">
+
         <!-- SECCIÓN 1: CONVERSOR -->
-        <!-- ========================= -->
-
-        <section class="conversor">
-
-            <h1>💱 Conversor de Divisas</h1>
-
-            <div class="conversor-contenido">
-
-                <div class="formulario">
-
-                    <label for="monto">Monto</label>
-
-                    <input 
-                        type="number" 
-                        id="monto" 
-                        placeholder="Ingrese un monto"
-                        value="1000"
-                    >
-
-                    <div class="monedas">
-
-                        <div>
-                            <label for="monedaOrigen">Desde</label>
-
-                            <select id="monedaOrigen">
-                                <option value="ARS">🇦🇷 ARS - Peso Argentino</option>
-                                <option value="USD">🇺🇸 USD - Dólar</option>
-                                <option value="EUR">🇪🇺 EUR - Euro</option>
-                                <option value="GBP">🇬🇧 GBP - Libra</option>
-                                <option value="BRL">🇧🇷 BRL - Real</option>
-                            </select>
-                        </div>
-
-                        <button class="intercambiar" onclick="intercambiarMonedas()">
-                            ⇄
-                        </button>
-
-                        <div>
-                            <label for="monedaDestino">Hacia</label>
-
-                            <select id="monedaDestino">
-                                <option value="USD">🇺🇸 USD - Dólar</option>
-                                <option value="ARS">🇦🇷 ARS - Peso Argentino</option>
-                                <option value="EUR">🇪🇺 EUR - Euro</option>
-                                <option value="GBP">🇬🇧 GBP - Libra</option>
-                                <option value="BRL">🇧🇷 BRL - Real</option>
-                            </select>
-                        </div>
-
-                    </div>
-
-                    <button class="btn-convertir" onclick="convertir()">
-                        CONVERTIR
-                    </button>
-
+        <section class="panel conversor">
+            <div class="titulo-seccion">
+                <span class="numero">1</span>
+                <div>
+                    <h2>Conversor de divisas</h2>
+                    <p>Ingresá los datos y convertí tu dinero.</p>
                 </div>
-
-
-                <!-- RESULTADO -->
-
-                <div class="resultado">
-
-                    <h2>RESULTADO</h2>
-
-                    <div class="resultado-caja">
-
-                        <p id="textoResultado">
-                            1.000 ARS = 0,75 USD
-                        </p>
-
-                        <span id="tipoCambio">
-                            Tipo de cambio: 1 USD = 1.333,33 ARS
-                        </span>
-
-                    </div>
-
-                    <p class="mensaje">
-                        El resultado se agrega automáticamente como una nueva pegatina ✨
-                    </p>
-
-                </div>
-
             </div>
 
-        </section>
+            <form id="formulario">
+                <label for="monto">Monto a convertir</label>
+                <input
+                    type="number"
+                    id="monto"
+                    min="0.01"
+                    step="any"
+                    value="1000"
+                    placeholder="Ingresá un monto"
+                    required
+                >
 
+                <label for="origen">Desde</label>
+                <select id="origen">
+                    <option value="ARS">🇦🇷 ARS - Peso argentino</option>
+                    <option value="USD">🇺🇸 USD - Dólar estadounidense</option>
+                    <option value="EUR">🇪🇺 EUR - Euro</option>
+                    <option value="GBP">🇬🇧 GBP - Libra esterlina</option>
+                    <option value="BRL">🇧🇷 BRL - Real brasileño</option>
+                </select>
 
-        <!-- ========================= -->
-        <!-- SECCIÓN 2: PEGATINAS -->
-        <!-- ========================= -->
-
-        <section class="pegatinas">
-
-            <div class="titulo-pegatinas">
-
-                <div>
-                    <h2>🎟️ Sistema de Pegatinas</h2>
-
-                    <p>
-                        Tus conversiones se guardan aquí
-                        como pegatinas coleccionables.
-                    </p>
-                </div>
-
-                <button class="btn-borrar" onclick="borrarPegatinas()">
-                    🗑️ Borrar todo
+                <button type="button" id="intercambiar" class="boton-intercambiar"
+                    aria-label="Intercambiar monedas" title="Intercambiar monedas">
+                    ⇅
                 </button>
 
+                <label for="destino">Hacia</label>
+                <select id="destino">
+                    <option value="USD">🇺🇸 USD - Dólar estadounidense</option>
+                    <option value="ARS">🇦🇷 ARS - Peso argentino</option>
+                    <option value="EUR">🇪🇺 EUR - Euro</option>
+                    <option value="GBP">🇬🇧 GBP - Libra esterlina</option>
+                    <option value="BRL">🇧🇷 BRL - Real brasileño</option>
+                </select>
+
+                <button type="submit" class="boton-convertir">
+                    CONVERTIR ✨
+                </button>
+            </form>
+
+            <div class="resultado" aria-live="polite">
+                <span class="etiqueta-resultado">TU RESULTADO</span>
+                <p id="textoResultado">Preparado para convertir</p>
+                <p id="tipoCambio" class="tipo-cambio">
+                    Consultando tipo de cambio...
+                </p>
+                <p id="estadoTasa" class="estado-tasa"></p>
             </div>
 
-
-            <!-- CONTENEDOR DE PEGATINAS -->
-
-            <div id="contenedorPegatinas" class="contenedor-pegatinas">
-
-                <!-- Las pegatinas aparecerán automáticamente aquí -->
-
-            </div>
-
+            <p id="mensaje" class="mensaje" role="status"></p>
         </section>
 
-    </div>
+        <!-- SECCIÓN 2: PEGATINAS -->
+        <section class="panel coleccion">
+            <div class="titulo-seccion">
+                <span class="numero numero-violeta">2</span>
+                <div>
+                    <h2>Sistema de pegatinas</h2>
+                    <p>Tus conversiones se guardan como pegatinas coleccionables.</p>
+                </div>
+            </div>
 
+            <div class="barra-coleccion">
+                <div>
+                    <strong id="contador">0 pegatinas</strong>
+                    <p>¡Completá tu colección!</p>
+                </div>
+                <button type="button" id="borrarTodo" class="boton-borrar">
+                    🗑 Borrar todo
+                </button>
+            </div>
+
+            <div id="coleccionPegatinas" class="rejilla-pegatinas">
+                <!-- Las pegatinas se crean desde JavaScript -->
+            </div>
+
+            <div id="coleccionVacia" class="coleccion-vacia">
+                <span>🎟️</span>
+                <h3>Tu colección está vacía</h3>
+                <p>Hacé tu primera conversión para conseguir una pegatina.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>💱 Mi colección de divisas · Cada conversión cuenta</p>
+    </footer>
 
     <script src="script.js"></script>
-
 </body>
 </html>
+```
